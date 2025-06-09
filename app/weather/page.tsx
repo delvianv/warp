@@ -12,6 +12,7 @@ interface WeatherProps {
 export default async function WeatherPage({ searchParams }: WeatherProps) {
   const { lat, lon } = searchParams;
   const weather = await fetchWeather(lat, lon);
+  const weatherCond = weather.weather[0];
 
   return (
     <div className="card w-sm bg-base-100 shadow-md mt-6">
@@ -20,14 +21,14 @@ export default async function WeatherPage({ searchParams }: WeatherProps) {
 
         <div className="flex flex-col items-center gap-2">
           <img
-            src={fetchIcon(weather.weather[0].icon)}
+            src={fetchIcon(weatherCond.icon)}
             alt="weather icon"
             className="w-20 h-20"
           />
           <p className="text-3xl font-bold">{weather.main.temp} &deg;C</p>
-          <p className="text-lg">{weather.weather[0].main}</p>
+          <p className="text-lg">{weatherCond.main}</p>
           <p className="text-sm capitalize text-base-content/70">
-            {weather.weather[0].description}
+            {weatherCond.description}
           </p>
         </div>
 

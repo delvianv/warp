@@ -20,11 +20,23 @@ export async function fetchLocation(city: string) {
   return data;
 }
 
+interface Weather {
+  name: string;
+  main: {
+    temp: number;
+  };
+  weather: {
+    main: string;
+    description: string;
+    icon: string;
+  }[];
+}
+
 export async function fetchWeather(lat: number, lon: number) {
   const response = await fetch(
     `${weatherAPI}?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric`
   );
-  const data = await response.json();
+  const data: Weather = await response.json();
   return data;
 }
 
