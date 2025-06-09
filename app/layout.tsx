@@ -5,12 +5,10 @@
  */
 
 import type { Metadata } from "next";
-import { Nunito } from "next/font/google";
 import Link from "next/link";
 
+import { nunito } from "./ui/fonts";
 import "./globals.css";
-
-const nunito = Nunito({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Warp Assessment",
