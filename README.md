@@ -2,13 +2,13 @@
 
 This is a simple weather app that allows users to enter a city name and view basic weather information in real time.
 
-## Design Decisions
+## Design decisions
 
 - Temperature is displayed in **°C** only, as per regional conventions.
 - The app uses **server-side rendering** (SSR) via [Next.js](https://nextjs.org/) to demonstrate performance benefits and SSR expertise.
 - No third-party libraries were used to showcase clean, minimal Next.js and React usage.
 
-## Getting Started
+## Usage
 
 1. **Clone the repository**
 
