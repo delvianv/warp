@@ -10,7 +10,7 @@ interface WeatherProps {
 }
 
 export default async function WeatherPage({ searchParams }: WeatherProps) {
-  const { lat, lon } = searchParams;
+  const { lat, lon } = await searchParams;
   const weather = await fetchWeather(lat, lon);
   const weatherCond = weather.weather[0];
 
