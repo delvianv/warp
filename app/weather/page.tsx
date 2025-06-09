@@ -2,14 +2,7 @@ import Link from "next/link";
 
 import { fetchWeather, fetchIcon } from "../lib/API";
 
-interface WeatherProps {
-  searchParams: {
-    lat: number;
-    lon: number;
-  };
-}
-
-export default async function WeatherPage({ searchParams }: WeatherProps) {
+export default async function WeatherPage({ searchParams }: any) {
   const { lat, lon } = await searchParams;
   const weather = await fetchWeather(lat, lon);
   const weatherCond = weather.weather[0];

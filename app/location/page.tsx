@@ -2,13 +2,7 @@ import { redirect } from "next/navigation";
 
 import { fetchLocation } from "../lib/API";
 
-interface LocationProps {
-  searchParams: {
-    city: string;
-  };
-}
-
-export default async function LocationPage({ searchParams }) {
+export default async function LocationPage({ searchParams }: any) {
   const { city } = await searchParams;
   const locations = await fetchLocation(city);
 
