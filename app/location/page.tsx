@@ -1,3 +1,5 @@
+import { redirect } from "next/navigation";
+
 import { fetchLocation } from "../lib/API";
 
 interface LocationProps {
@@ -6,7 +8,7 @@ interface LocationProps {
   };
 }
 
-interface City {
+interface Location {
   name: string;
   state: string;
   country: string;
@@ -15,10 +17,10 @@ interface City {
 }
 
 export default async function LocationPage({ searchParams }: LocationProps) {
-  const city = searchParams.city;
-  const data: City[] = await fetchLocation(city);
+  const { city } = searchParams;
+  const locations: Location[] = await fetchLocation(city);
 
-  if (data.length === 0) {
+  if (locations.length === 0) {
     return (
       <div role="alert" className="alert alert-warning w-lg">
         <svg
@@ -39,21 +41,19 @@ export default async function LocationPage({ searchParams }: LocationProps) {
     );
   }
 
-  if (data.length === 1) {
-    const { lat, lon } = data[0];
-    console.log("lat:", lat);
-    console.log("lon:", lon);
-    return;
+  if (locations.length === 1) {
+    const { lat, lon } = locations[0];
+    redirect(`/weather?lat=${lat}&lon=${lon}`);
   }
 
   return (
     <ul className="list bg-base-100 rounded-box shadow-md w-lg">
-      {data.map((city: City, index: number) => (
+      {locations.map((location: Location, index: number) => (
         <li key={index} className="list-row">
           <a
-            href=""
+            href={`/weather?lat=${location.lat}&lon=${location.lon}`}
             className="btn"
-          >{`${city.name}, ${city.state}, ${city.country}`}</a>
+          >{`${location.name}, ${location.state}, ${location.country}`}</a>
         </li>
       ))}
     </ul>
