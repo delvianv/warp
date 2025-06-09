@@ -16,7 +16,13 @@ interface Location {
   lon: number;
 }
 
-export default async function LocationPage({ searchParams }: LocationProps) {
+export default async function LocationPage({
+  searchParams,
+}: {
+  searchParams: {
+    city: string;
+  };
+}) {
   const { city } = searchParams;
   const locations: Location[] = await fetchLocation(city);
 
