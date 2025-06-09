@@ -32,7 +32,11 @@ export default async function LocationPage({ searchParams }: LocationProps) {
           <a
             href={`/weather?lat=${location.lat}&lon=${location.lon}`}
             className="btn"
-          >{`${location.name}, ${location.state}, ${location.country}`}</a>
+          >
+            {`${location.name}, ${location.state ? `${location.state}, ` : ""}${
+              location.country
+            }`}
+          </a>
         </li>
       ))}
     </ul>
