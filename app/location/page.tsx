@@ -8,7 +8,7 @@ interface LocationProps {
   };
 }
 
-export default async function LocationPage({ searchParams }: LocationProps) {
+export default async function LocationPage({ searchParams }) {
   const { city } = await searchParams;
   const locations = await fetchLocation(city);
 
