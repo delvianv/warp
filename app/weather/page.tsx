@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 import { fetchWeather, fetchIcon } from "../lib/API";
 
 interface WeatherProps {
@@ -27,6 +29,12 @@ export default async function WeatherPage({ searchParams }: WeatherProps) {
           <p className="text-sm capitalize text-base-content/70">
             {weather.weather[0].description}
           </p>
+        </div>
+
+        <div className="mt-4">
+          <Link href="/" className="btn btn-outline btn-sm">
+            Search another location
+          </Link>
         </div>
       </div>
     </div>

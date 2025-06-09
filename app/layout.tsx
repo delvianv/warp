@@ -6,6 +6,7 @@
 
 import type { Metadata } from "next";
 import { Nunito } from "next/font/google";
+import Link from "next/link";
 
 import "./globals.css";
 
@@ -28,9 +29,9 @@ export default function RootLayout({ children }: LayoutProps) {
         className={`${nunito.className} antialiased min-h-screen flex flex-col bg-base-300 text-base-content`}
       >
         <header className="navbar bg-neutral text-neutral-content">
-          <button className="btn btn-ghost text-xl">
+          <Link href="/" className="btn btn-ghost text-xl">
             Warp Development Assessment
-          </button>
+          </Link>
         </header>
 
         <main className="flex-grow mx-auto p-6">{children}</main>
