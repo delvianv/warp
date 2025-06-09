@@ -2,6 +2,8 @@ const locationAPI = "http://api.openweathermap.org/geo/1.0/direct";
 const weatherAPI = "https://api.openweathermap.org/data/2.5/weather";
 const apiKey = process.env.API_KEY;
 
+const icons = "https://openweathermap.org/img/wn";
+
 export async function fetchLocation(city: string) {
   const response = await fetch(
     `${locationAPI}?q=${city}&appid=${apiKey}&limit=5`
@@ -16,4 +18,8 @@ export async function fetchWeather(lat: number, lon: number) {
   );
   const data = await response.json();
   return data;
+}
+
+export function fetchIcon(icon: string) {
+  return `${icons}/${icon}@2x.png`;
 }
