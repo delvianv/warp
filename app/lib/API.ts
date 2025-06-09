@@ -4,11 +4,19 @@ const apiKey = process.env.API_KEY;
 
 const icons = "https://openweathermap.org/img/wn";
 
+interface Location {
+  name: string;
+  state: string;
+  country: string;
+  lat: number;
+  lon: number;
+}
+
 export async function fetchLocation(city: string) {
   const response = await fetch(
     `${locationAPI}?q=${city}&appid=${apiKey}&limit=5`
   );
-  const data = await response.json();
+  const data: Location[] = await response.json();
   return data;
 }
 

@@ -8,17 +8,9 @@ interface LocationProps {
   };
 }
 
-interface Location {
-  name: string;
-  state: string;
-  country: string;
-  lat: number;
-  lon: number;
-}
-
 export default async function LocationPage({ searchParams }: LocationProps) {
   const { city } = searchParams;
-  const locations: Location[] = await fetchLocation(city);
+  const locations = await fetchLocation(city);
 
   if (locations.length === 0) {
     return (
@@ -35,7 +27,7 @@ export default async function LocationPage({ searchParams }: LocationProps) {
 
   return (
     <ul className="list bg-base-100 rounded-box shadow-md w-lg">
-      {locations.map((location: Location, index: number) => (
+      {locations.map((location, index: number) => (
         <li key={index} className="list-row">
           <a
             href={`/weather?lat=${location.lat}&lon=${location.lon}`}
