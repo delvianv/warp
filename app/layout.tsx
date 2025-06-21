@@ -26,7 +26,7 @@ export default function RootLayout({ children }: LayoutProps) {
   return (
     <html lang="en">
       <body
-        className={`${nunito.className} antialiased flex flex-col min-h-screen`}
+        className={`${nunito.className} antialiased flex flex-col min-h-screen bg-base-300`}
       >
         <Header />
         {children}
