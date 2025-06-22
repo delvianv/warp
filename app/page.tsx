@@ -1,17 +1,16 @@
 "use client";
 
-import Image from "next/image";
 import { useActionState, useState } from "react";
 
-import { fetchIcon } from "./lib/API";
 import { getLocations, getWeather } from "./lib/actions";
 import { Location, Weather } from "./lib/types";
+import Loading from "./ui/Loading";
 import LocationList from "./ui/LocationList";
 import SearchForm from "./ui/SearchForm";
 import WeatherCard from "./ui/WeatherCard";
 
 export default function HomePage() {
-  const [locations, formAction] = useActionState(getLocations, []);
+  const [locations, formAction, loading] = useActionState(getLocations, []);
   const [weather, setWeather] = useState<Weather>();
 
   const handleSearch = (formData: FormData) => {
@@ -27,6 +26,8 @@ export default function HomePage() {
   return (
     <main className="m-8 grow flex flex-col gap-6 md:w-md md:mx-auto">
       <SearchForm handleSearch={handleSearch} />
+
+      {loading && <Loading />}
 
       {locations && !weather && (
         <LocationList locations={locations} onClick={handleGetWeather} />

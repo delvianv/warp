@@ -18,6 +18,10 @@ export async function fetchWeather(location: Location) {
     `${weather}?lat=${location.lat}&lon=${location.lon}&appid=${key}&units=metric`
   );
   const data: Weather = await response.json();
+
+  // Simulate loading
+  await new Promise((resolve) => setTimeout(resolve, 3000));
+
   return data;
 }
 

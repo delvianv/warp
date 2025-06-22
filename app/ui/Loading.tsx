@@ -1,11 +1,7 @@
-interface LoadingProps {
-  message: string;
-}
-
-export default function Loading({ message }: LoadingProps) {
+export default function Loading() {
   return (
-    <div role="alert" className="alert alert-info alert-soft w-lg">
-      <span>{message}</span>
+    <div className="mx-auto">
+      <span className="loading loading-ring loading-xl"></span>
     </div>
   );
 }
