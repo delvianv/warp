@@ -14,6 +14,7 @@ export default function HomePage() {
     getLocations,
     []
   );
+
   const [loadingWeather, setLoadingWeather] = useState(false);
   const [weather, setWeather] = useState<Weather>();
 
