@@ -10,17 +10,25 @@ import SearchForm from "./ui/SearchForm";
 import WeatherCard from "./ui/WeatherCard";
 
 export default function HomePage() {
-  const [locations, formAction, loading] = useActionState(getLocations, []);
+  const [locations, formAction, loadingLocations] = useActionState(
+    getLocations,
+    []
+  );
+  const [loadingWeather, setLoadingWeather] = useState(false);
   const [weather, setWeather] = useState<Weather>();
 
+  const loading = loadingLocations || loadingWeather;
+
   const handleSearch = (formData: FormData) => {
-    formAction(formData);
     setWeather(undefined);
+    formAction(formData);
   };
 
   const handleGetWeather = async (location: Location) => {
+    setLoadingWeather(true);
     const weather = await getWeather(location);
     setWeather(weather);
+    setLoadingWeather(false);
   };
 
   return (
@@ -29,11 +37,11 @@ export default function HomePage() {
 
       {loading && <Loading />}
 
-      {locations && !weather && (
+      {locations && !weather && !loading && (
         <LocationList locations={locations} onClick={handleGetWeather} />
       )}
 
-      {weather && <WeatherCard weather={weather} />}
+      {weather && !loading && <WeatherCard weather={weather} />}
     </main>
   );
 }
