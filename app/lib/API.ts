@@ -13,14 +13,15 @@ export async function fetchLocations(city: string) {
   return data;
 }
 
-export async function fetchWeather(lat: number, lon: number) {
+export async function fetchWeather(location: Location) {
   const response = await fetch(
-    `${weather}?lat=${lat}&lon=${lon}&appid=${key}&units=metric`
+    `${weather}?lat=${location.lat}&lon=${location.lon}&appid=${key}&units=metric`
   );
   const data: Weather = await response.json();
   return data;
 }
 
-export function fetchIcon(icon: string) {
-  return `${icons}/${icon}@2x.png`;
+export function fetchIcon(weather: Weather) {
+  const icon = weather.weather[0].icon;
+  return `${icons}/${icon}@4x.png`;
 }
