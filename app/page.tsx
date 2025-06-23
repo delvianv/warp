@@ -4,11 +4,12 @@ import { useActionState, useEffect, useState } from "react";
 
 import { getLocation, getWeather } from "./lib/actions";
 import { Location, Weather } from "./lib/types";
+import ErrorAlert from "./ui/components/ErrorAlert";
+import InfoAlert from "./ui/components/InfoAlert";
 import Loading from "./ui/components/Loading";
 import LocationList from "./ui/components/LocationList";
 import SearchForm from "./ui/components/SearchForm";
 import WeatherCard from "./ui/components/WeatherCard";
-import ErrorAlert from "./ui/components/ErrorAlert";
 
 export default function HomePage() {
   const [locationResponse, formAction, loadingLocation] = useActionState(
@@ -20,15 +21,22 @@ export default function HomePage() {
   const [locations, setLocations] = useState<Location[]>();
   const [weather, setWeather] = useState<Weather>();
   const [error, setError] = useState<string>();
+  const [info, setInfo] = useState<string>();
 
   useEffect(() => {
     if (locationResponse) {
       switch (locationResponse.status) {
         case "success":
-          if (locationResponse.data.length === 1) {
-            handleGetWeather(locationResponse.data[0] as Location);
-          } else {
-            setLocations(locationResponse.data as Location[]);
+          switch (locationResponse.data.length) {
+            case 0:
+              setInfo("No locations found");
+              break;
+            case 1:
+              handleGetWeather(locationResponse.data[0] as Location);
+              break;
+            default:
+              setLocations(locationResponse.data as Location[]);
+              break;
           }
           break;
         case "error":
@@ -44,6 +52,7 @@ export default function HomePage() {
     setLocations(undefined);
     setWeather(undefined);
     setError(undefined);
+    setInfo(undefined);
   };
 
   const handleSearch = (formData: FormData) => {
@@ -70,6 +79,7 @@ export default function HomePage() {
   return (
     <main className="m-8 grow flex flex-col gap-6 md:w-md md:mx-auto">
       {error && <ErrorAlert message={error} />}
+      {info && <InfoAlert message={info} />}
 
       <SearchForm handleSearch={handleSearch} />
 
