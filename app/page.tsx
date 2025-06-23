@@ -25,7 +25,11 @@ export default function HomePage() {
     if (locationResponse) {
       switch (locationResponse.status) {
         case "success":
-          setLocations(locationResponse.data as Location[]);
+          if (locationResponse.data.length === 1) {
+            handleGetWeather(locationResponse.data[0] as Location);
+          } else {
+            setLocations(locationResponse.data as Location[]);
+          }
           break;
         case "error":
           setError(locationResponse.data as string);
