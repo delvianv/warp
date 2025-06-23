@@ -1,5 +1,7 @@
 /**
- * Warp Development Assessment
+ * Warp
+ *
+ * Show basic weather information in real-time
  *
  * (c) Delvian Valentine <https://delvianv.github.io>
  */
@@ -12,8 +14,8 @@ import { nunito } from "./ui/fonts";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Warp Assessment",
-  description: "Warp Development Assessment",
+  title: "Warp",
+  description: "Show basic weather information in real-time",
   authors: [{ name: "Delvian Valentine", url: "https://delvianv.github.io" }],
 };
 
