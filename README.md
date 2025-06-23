@@ -2,6 +2,8 @@
 
 Show basic weather information in real-time
 
+![Screenshot](/images/screenshot.png)
+
 ## Usage
 
 1. **Clone the repository**
