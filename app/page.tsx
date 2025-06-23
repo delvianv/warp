@@ -1,44 +1,77 @@
 "use client";
 
-import { useActionState, useState } from "react";
+import { useActionState, useEffect, useState } from "react";
 
-import { getLocations, getWeather } from "./lib/actions";
+import { getLocation, getWeather } from "./lib/actions";
 import { Location, Weather } from "./lib/types";
-import Loading from "./ui/Loading";
-import LocationList from "./ui/LocationList";
-import SearchForm from "./ui/SearchForm";
-import WeatherCard from "./ui/WeatherCard";
+import Loading from "./ui/components/Loading";
+import LocationList from "./ui/components/LocationList";
+import SearchForm from "./ui/components/SearchForm";
+import WeatherCard from "./ui/components/WeatherCard";
+import ErrorAlert from "./ui/components/ErrorAlert";
 
 export default function HomePage() {
-  const [locations, formAction, loadingLocations] = useActionState(
-    getLocations,
-    []
+  const [locationResponse, formAction, loadingLocation] = useActionState(
+    getLocation,
+    undefined
   );
 
   const [loadingWeather, setLoadingWeather] = useState(false);
+  const [locations, setLocations] = useState<Location[]>();
   const [weather, setWeather] = useState<Weather>();
+  const [error, setError] = useState<string>();
 
-  const loading = loadingLocations || loadingWeather;
+  useEffect(() => {
+    if (locationResponse) {
+      switch (locationResponse.status) {
+        case "success":
+          setLocations(locationResponse.data as Location[]);
+          break;
+        case "error":
+          setError(locationResponse.data as string);
+          break;
+      }
+    }
+  }, [locationResponse]);
+
+  const loading = loadingLocation || loadingWeather;
+
+  const reset = () => {
+    setLocations(undefined);
+    setWeather(undefined);
+    setError(undefined);
+  };
 
   const handleSearch = (formData: FormData) => {
-    setWeather(undefined);
+    reset();
     formAction(formData);
   };
 
   const handleGetWeather = async (location: Location) => {
+    reset();
+
     setLoadingWeather(true);
-    const weather = await getWeather(location);
-    setWeather(weather);
+    const weatherResponse = await getWeather(location);
+    switch (weatherResponse.status) {
+      case "success":
+        setWeather(weatherResponse.data as Weather);
+        break;
+      case "error":
+        setError(weatherResponse.data as string);
+        break;
+    }
     setLoadingWeather(false);
   };
 
   return (
     <main className="m-8 grow flex flex-col gap-6 md:w-md md:mx-auto">
+      {error && <ErrorAlert message={error} />}
+
       <SearchForm handleSearch={handleSearch} />
 
       {loading && <Loading />}
 
-      {locations && !weather && !loading && (
+      {locations && !loading && (
         <LocationList locations={locations} onClick={handleGetWeather} />
       )}
 

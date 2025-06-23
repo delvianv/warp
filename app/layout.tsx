@@ -5,10 +5,9 @@
  */
 
 import type { Metadata } from "next";
-import Link from "next/link";
 
-import Footer from "./ui/Footer";
-import Header from "./ui/Header";
+import Footer from "./ui/containers/Footer";
+import Header from "./ui/containers/Header";
 import { nunito } from "./ui/fonts";
 import "./globals.css";
 

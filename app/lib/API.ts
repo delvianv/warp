@@ -7,18 +7,22 @@ const key = process.env.API_KEY;
 
 const icons = "https://openweathermap.org/img/wn";
 
-export async function fetchLocations(city: string) {
+export async function fetchLocation(city: string): Promise<Location[]> {
   const response = await fetch(`${location}?q=${city}&appid=${key}&limit=5`);
-  const data: Location[] = await response.json();
-  return data;
+
+  if (!response.ok) throw new Error("Error fetching locations");
+  return await response.json();
 }
 
-export async function fetchWeather(location: Location) {
+export async function fetchWeather(location: Location): Promise<Weather> {
+  const { lat, lon } = location;
+
   const response = await fetch(
-    `${weather}?lat=${location.lat}&lon=${location.lon}&appid=${key}&units=metric`
+    `${weather}?lat=${lat}&lon=${lon}&appid=${key}&units=metric`
   );
-  const data: Weather = await response.json();
-  return data;
+
+  if (!response.ok) throw new Error("Error fetching weather");
+  return await response.json();
 }
 
 export function fetchIcon(weather: Weather) {

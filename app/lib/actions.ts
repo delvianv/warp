@@ -1,17 +1,29 @@
 "use server";
 
-import { fetchLocations, fetchWeather } from "./API";
-import { Location } from "./types";
+import { fetchLocation, fetchWeather } from "./API";
+import { Location, LocationResponse, WeatherResponse } from "./types";
 
-export async function getLocations(formState: Location[], formData: FormData) {
+export async function getLocation(
+  formState: LocationResponse | undefined,
+  formData: FormData
+): Promise<LocationResponse> {
   const city = formData.get("city");
-  if (!city) return [];
 
-  const locations = await fetchLocations(city.toString());
-  return locations;
+  try {
+    const locations = await fetchLocation(city as string);
+    return { status: "success", data: locations };
+  } catch (error) {
+    console.error(error);
+    return { status: "error", data: "Error fetching locations" };
+  }
 }
 
-export async function getWeather(location: Location) {
-  const weather = await fetchWeather(location);
-  return weather;
+export async function getWeather(location: Location): Promise<WeatherResponse> {
+  try {
+    const weather = await fetchWeather(location);
+    return { status: "success", data: weather };
+  } catch (error) {
+    console.error(error);
+    return { status: "error", data: "Error fetching weather" };
+  }
 }

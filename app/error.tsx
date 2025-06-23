@@ -1,6 +1,6 @@
 "use client";
 
-import ErrorAlert from "./ui/ErrorAlert";
+import ErrorAlert from "./ui/components/ErrorAlert";
 
 interface PageProps {
   error: Error;
