@@ -27,7 +27,7 @@ Show basic weather information in real-time
 
 4. **Open browser**
 
-   Visit http://localhost:3000
+   http://localhost:3000
 
 5. **Set up OpenWeatherMap API key**
    - Sign up for free account at https://openweathermap.org
