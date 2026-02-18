@@ -4,9 +4,9 @@ Show basic weather information in real-time
 
 ![Screenshot](/images/screenshot.png)
 
-## Usage
+## Installation
 
-1. **Clone the repository**
+1. **Clone repository**
 
    ```bash
    git clone https://github.com/delvianv/warp.git
@@ -25,17 +25,16 @@ Show basic weather information in real-time
    npm run dev
    ```
 
-4. **Open in your browser**
+4. **Open browser**
 
    Visit http://localhost:3000
 
-5. **Set up your own OpenWeatherMap API key**
-
-   - Sign up for a free account at https://openweathermap.org
-   - Create a `.env` file in the root of the project and add your API key
+5. **Set up OpenWeatherMap API key**
+   - Sign up for free account at https://openweathermap.org
+   - Create `.env` file in root of project and add API key
 
    ```bash
-   API_KEY=your_api_key
+   API_KEY=api_key
    ```
 
 ## Licence
